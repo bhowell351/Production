@@ -30,14 +30,14 @@ WHERE     (P_F_AM_F3.AM_LDR_PATH LIKE '%D1D.FBE.FBE Plating.CEV%')
 """
 
 dframe = pd.read_sql(query, conn_XEUS)
-dframe.to_csv(r"C:\Users\bhowell\OneDrive - Intel Corporation\Documents\CEV Dashboard\dframe.csv", index = False)
+dframe.to_csv(r"C:\Users\bhowell\OneDrive - Intel Corporation\Documents\dframe.csv", index = False)
 dframe['PARAMETER_LIST'] = dframe['PARAMETER_LIST'].str.split(';')
 dfr = dframe.explode('PARAMETER_LIST')
-chem = dfr.loc[dfr['PARAMETER_LIST'].str.contains("CHEMICAL=", case = False)]
+chem = dfr.loc[dfr['PARAMETER_LIST'].str.contains("LAYER=", case = False)]
 output = pd.DataFrame({'OPERATION':chem['OPERATION'],'PROCESS':chem['PROCESS'],'GROUPING':chem['PARAMETER_LIST']})
 output.drop_duplicates(inplace = True)
 for i, row in output.iterrows():
-      output.loc[i,'GROUPING'] = output.loc[i,'GROUPING'][9:]
+      output.loc[i,'GROUPING'] = output.loc[i,'GROUPING'][6:]
 print(output)
 
-output.to_csv(r"C:\Users\bhowell\OneDrive - Intel Corporation\Documents\CEV Dashboard\df.csv", index = False)
+output.to_csv(r"C:\Users\bhowell\OneDrive - Intel Corporation\Documents\CEV Dashboard\oper_to_layer.csv", index = False)
