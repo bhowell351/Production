@@ -26,7 +26,6 @@ FROM D1D_PROD_XEUS.P_F_AM_F3 P_F_AM_F3
 WHERE     (P_F_AM_F3.AM_LDR_PATH LIKE '%D1D.FBE.FBE Plating.CEV%')
       AND (P_F_AM_F3.AM_LDR_PROCESS = 'MFG')
       AND (P_F_AM_F3.AM_LDR_OBJECTNAME = 'F3_SETUP')
-      AND (SUBSTR(P_F_AM_F3.COMMENTS,2,5) LIKE '1%')
 """
 
 dframe = pd.read_sql(query, conn_XEUS)
